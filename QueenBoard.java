@@ -14,15 +14,33 @@ public class QueenBoard{
 
   private boolean addQueen(int r, int c){
     if(data.length == 0) return false;
-    if(data[r][c] > 0) return false;
+    if(data[r][c] != 0) return false;
     for(int i = c; i < data[0].length; i++){
-      
-    }
+      data[r][i] ++;
+      //going diagonally up
+      if(r+(i - c)< data.length) data[r + (i - c)][c]+= 1;
+      //going diagonally down
+      if(r-(i-c) >=0) data[r-(i-c)][c] += 1;
+        }
+
     data[r][c] = -1;
     return true;
   }
 
-  private void remove
+  private void removeQueen(int r, int c){
+    if(data.length == 0) return false;
+    if(data[r][c] != -1) return false;
+    for(int i = c; i < data[0].length; i++){
+      data[r][i] --;
+      //going diagonally up
+      if(r+(i - c)< data.length) data[r + (i - c)][c]-= 1;
+      //going diagonally down
+      if(r-(i-c) >=0) data[r-(i-c)][c] -= 1;
+        }
+
+    data[r][c] = -1;
+    return true;
+  }
 
 
 
