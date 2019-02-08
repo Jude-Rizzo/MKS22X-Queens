@@ -27,7 +27,7 @@ public class QueenBoard{
     return true;
   }
 
-  private void removeQueen(int r, int c){
+  private boolean removeQueen(int r, int c){
     if(data.length == 0) return false;
     if(data[r][c] != -1) return false;
     for(int i = c; i < data[0].length; i++){
@@ -43,23 +43,23 @@ public class QueenBoard{
   }
 
   public boolean solve(){
-    solveH(0,0,data.length);
+    return solveH(0,0,data.length);
   }
 
 
-  public boolean solveH(row, col, size){
+  public boolean solveH(int row,int col, int size){
     if(row >= size) return true;
     //start off by seeing if u can add a queen to the 0,0
     if(addQueen(row, col)){
       //then goes to the next row and adds
-     return solveH(row + 1, col)}
-    else{
+     return solveH(row + 1, col, size);
+   }else{
       //remove the queen that you just added
       removeQueen(row, col);
       //if every column has been tested go back a row and try to solve it
-      if(col >= size) return solveH(row -1, 0);
+      if(col >= size) return solveH(row -1, 0, size);
       //otherwise just go down a column and see if that works
-      return solveH(row, col + 1);
+      return solveH(row, col + 1, size);
     }
   }
 
