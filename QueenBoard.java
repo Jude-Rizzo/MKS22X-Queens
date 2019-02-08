@@ -37,9 +37,30 @@ public class QueenBoard{
       //going diagonally down
       if(r-(i-c) >=0) data[r-(i-c)][c] -= 1;
         }
-
-    data[r][c] = -1;
+        //fix!
+    data[r][c] = 0;
     return true;
+  }
+
+  public boolean solve(){
+    solveH(0,0,data.length);
+  }
+
+
+  public boolean solveH(row, col, size){
+    if(row >= size) return true;
+    //start off by seeing if u can add a queen to the 0,0
+    if(addQueen(row, col)){
+      //then goes to the next row and adds
+     return solveH(row + 1, col)}
+    else{
+      //remove the queen that you just added
+      removeQueen(row, col);
+      //if every column has been tested go back a row and try to solve it
+      if(col >= size) return solveH(row -1, 0);
+      //otherwise just go down a column and see if that works
+      return solveH(row, col + 1);
+    }
   }
 
 
