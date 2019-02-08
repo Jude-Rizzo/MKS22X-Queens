@@ -63,6 +63,17 @@ public class QueenBoard{
     }
   }
 
+  public String toString(){
+  String ans = "";
+    for(int i = 0; i < data.length; i++){
+      ans +="/n";
+      for(int j = 0; j < data.length; j++){
+        ans += data[i][j];
+      }
+    }
+    return ans;
+  }
+
 
 
 }
