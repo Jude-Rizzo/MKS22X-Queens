@@ -1,7 +1,8 @@
 public class QueenBoard{
   private int[][] data;
   public QueenBoard(int size){
-    clear(data);
+    data = new int[size][size];
+    QueenBoard.clear(data);
   }
 
   public static void clear(int[][] l){
@@ -66,12 +67,18 @@ public class QueenBoard{
   public String toString(){
   String ans = "";
     for(int i = 0; i < data.length; i++){
-      ans +="/n";
+      ans +="\n";
       for(int j = 0; j < data.length; j++){
         ans += data[i][j];
       }
     }
     return ans;
+  }
+
+  public static void main(String[] args){
+    QueenBoard yay = new QueenBoard(4);
+    yay.solve();
+    System.out.println(yay);
   }
 
 
