@@ -109,7 +109,8 @@ public class QueenBoard{
 
   public static void main(String[] args){
     QueenBoard q = new QueenBoard(8);
-    q.addQueen(4,5);
+    q.addQueen(0,0);
+    q.removeQueen(0,0);
     System.out.println(q);
   }
 }
