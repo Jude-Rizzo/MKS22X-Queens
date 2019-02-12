@@ -80,7 +80,7 @@ public class QueenBoard{
     if(c > board.length-1) return 1;
     for(int i = 0; i < board.length; i++){
       if(addQueen(i, c)){
-        count +=countSolutions(c+1);
+        count +=countSolutionsH(c+1);
         removeQueen(i,c);
       }
     } return count;
@@ -91,8 +91,16 @@ public class QueenBoard{
     for(int i = 0; i < board.length; i++){
       ans +="\n";
       for(int j = 0; j < board.length; j++){
-        ans += board[i][j];
+        if (board[i][j] == -1) ans += "Q";else ans+="_";
       }
     }
     return ans;
   }
+
+  public static void main(String[] args){
+    QueenBoard q = new QueenBoard(8);
+    q.solve();
+    System.out.println(q);
+    System.out.println(q.countSolutions());
+  }
+}
