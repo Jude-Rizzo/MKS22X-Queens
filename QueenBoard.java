@@ -15,15 +15,12 @@ public class QueenBoard{
 
   private boolean addQueen(int r, int c){
     if(board.length == 0) return false;
-    if(r >= board.length || c >= board[0].length || board[r][c] != 0) return false;
+    if(r >= board.length || c >= board.length)return false;
+    if(board[r][c] != 0) return false;
     for(int i = c; i < board[0].length; i++){
       board[r][i] ++;
-      if(r + i < board.length){
-      board[r+i][c] ++;
-    }
-    if(r - i >= 0){
-      board[r-i][c] ++;
-    }
+      board[i][c] ++;
+
       //going diagonally up
       if (r-i >= 0 && c+i <board.length)board[r-i][i+c]++;
       //going diagonally down
@@ -35,40 +32,53 @@ public class QueenBoard{
   }
 
   private boolean removeQueen(int r, int c){
-    if(board.length == 0) return false;
-    if(r >= board.length || c >= board[0].length) return false;
-    if(board[r][c] != -1) return false;
-    for(int i = c; i < board[0].length; i++){
-      board[r][i] --;
-      //going diagonally up
-      if(r+(i - c)< board.length) board[r + (i - c)][c]-= 1;
-      //going diagonally down
-      if(r-(i-c) >=0) board[r-(i-c)][c] -= 1;
-        }
-        //fix!
-    board[r][c] = 0;
-    return true;
-  }
+   if (r >= board.length || c >= board.length) return false;
+   //check to make sure the loc is a queen
+   if (board[r][c] == -1){
+     //remove the places that have been marked
+     for (int i = 0; i < board.length; i++){
+       //vertically
+       board[i][c]--;
+       //horizontally
+       board[r][i]--;
+       //diagonally y = x
+       if (r-i >= 0 && c+i < board.length) board[r-i][i+c]--;
+       //diagonally y = -x
+       if (r+i < board.length && c+i < board.length) board[r+i][c+i]--;
+     }
+     board[r][c] = 0;
+     return true;
+   }
+   return false;
+ }
 
   public boolean solve(){
-    return solveH(0,0,board.length);
+    clear(board);
+    return solveH(0);
   }
 
 
-  public boolean solveH(int row,int col, int size){
-    if(row >= size) return true;
-    //start off by seeing if u can add a queen to the 0,0
-    if(addQueen(row, col)){
-      //then goes to the next row and adds
-     return solveH(row + 1, col, size);
-   }else{
-      //remove the queen that you just added
-      removeQueen(row, col);
-      //if every column has been tested go back a row and try to solve it
-      if(col >= size) return solveH(row -1, 0, size);
-      //otherwise just go down a column and see if that works
-      return solveH(row, col + 1, size);
+  public boolean solveH(int c){
+    //will only happen if all queens have been placed
+    if (c >= board.length){
+      return true;
     }
+    for (int i = 0; i < board.length; i++){
+      //recursive call if queen can be placed
+      if (addQueen(i,c)){
+        //then move to next column
+        if (solveH(c+1)){
+          return true;
+        }
+        //if cannot add queen to the next column
+        else{
+          //backtrack
+          //remove the queen that was placed
+          removeQueen(i,c);
+        }
+      }
+    }
+    return false;
   }
 
   public int countSolutions(){
@@ -91,7 +101,7 @@ public class QueenBoard{
     for(int i = 0; i < board.length; i++){
       ans +="\n";
       for(int j = 0; j < board.length; j++){
-        if (board[i][j] == -1) ans += "Q";else ans+="_";
+        if (board[i][j] == -1) ans += "Q";else ans+=board[i][j];
       }
     }
     return ans;
@@ -99,8 +109,7 @@ public class QueenBoard{
 
   public static void main(String[] args){
     QueenBoard q = new QueenBoard(8);
-    q.solve();
+    q.addQueen(4,5);
     System.out.println(q);
-    System.out.println(q.countSolutions());
   }
 }
