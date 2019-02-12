@@ -101,7 +101,7 @@ public class QueenBoard{
     for(int i = 0; i < board.length; i++){
       ans +="\n";
       for(int j = 0; j < board.length; j++){
-        if (board[i][j] == -1) ans += "Q";else ans+=board[i][j];
+        if (board[i][j] == -1) ans += "Q";else ans+="_";
       }
     }
     return ans;
@@ -109,12 +109,8 @@ public class QueenBoard{
 
   public static void main(String[] args){
     QueenBoard q = new QueenBoard(8);
-    q.addQueen(0,0);
-    q.addQueen(1,1);
-    q.removeQueen(1,1);
-    q.addQueen(4,5);
-    System.out.println(q);
-    q.removeQueen(4,5);
+    System.out.println(q.countSolutions());
+    System.out.println(q.solve());
     System.out.println(q);
   }
 }
