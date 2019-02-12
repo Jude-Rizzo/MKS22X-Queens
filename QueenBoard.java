@@ -71,7 +71,11 @@ public class QueenBoard{
     }
   }
 
-  public int countSolutions(int c){
+  public int countSolutions(){
+    return countSolutionsH(0);
+  }
+
+  public int countSolutionsH(int c){
     int count = 0 ;
     if(c > board.length-1) return 1;
     for(int i = 0; i < board.length; i++){
