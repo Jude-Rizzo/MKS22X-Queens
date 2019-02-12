@@ -19,9 +19,12 @@ public class QueenBoard{
     for(int i = c; i < data[0].length; i++){
       data[r][i] ++;
       //going diagonally up
-      if(r+(i - c)< data.length) data[r + (i - c)][c]+= 1;
+      if (r-i >= 0 && c+i <data.length)data[r-i][i+c]++;
+        //diagonally y = -x
+        //check bounds
+
       //going diagonally down
-      if(r-(i-c) >=0) data[r-(i-c)][c] += 1;
+      if (r+i <data.length && c+i <data.length)data[r+i][c+i]++;
         }
 
     data[r][c] = -1;
