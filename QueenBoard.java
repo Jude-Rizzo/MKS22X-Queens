@@ -17,7 +17,7 @@ public class QueenBoard{
     if(board.length == 0) return false;
     if(r >= board.length || c >= board.length)return false;
     if(board[r][c] != 0) return false;
-    for(int i = c; i < board[0].length; i++){
+    for(int i = 0; i < board[0].length; i++){
       board[r][i] ++;
       board[i][c] ++;
 
@@ -110,7 +110,11 @@ public class QueenBoard{
   public static void main(String[] args){
     QueenBoard q = new QueenBoard(8);
     q.addQueen(0,0);
-    q.removeQueen(0,0);
+    q.addQueen(1,1);
+    q.removeQueen(1,1);
+    q.addQueen(4,5);
+    System.out.println(q);
+    q.removeQueen(4,5);
     System.out.println(q);
   }
 }
