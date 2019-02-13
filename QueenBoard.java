@@ -101,7 +101,7 @@ public class QueenBoard{
     for(int i = 0; i < board.length; i++){
       ans +="\n";
       for(int j = 0; j < board.length; j++){
-        if (board[i][j] == -1) ans += "Q";else ans+="_";
+        if (board[i][j] == -1) ans += "Q ";else ans+="_ ";
       }
     }
     return ans;
